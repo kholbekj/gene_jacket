@@ -1,0 +1,13 @@
+name: gene_jacket
+version: 0.1.0
+
+authors:
+  - Kasper Jensen <kasper.jensen@solarisbank.de>
+
+targets:
+  gene_jacket:
+    main: src/gene_jacket.cr
+
+crystal: 0.34.0
+
+license: MIT
