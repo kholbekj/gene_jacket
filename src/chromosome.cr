@@ -3,12 +3,18 @@ require "bit_array"
 # Each chromosome represents a solution for the algorithm.
 # You should subclass this.
 abstract class Chromosome
+  
+  # Create a random new chromosome.
+  # Should be overridden.
+  def self.random
+    new(BitArray.new(1))
+  end
 
   # Fitness function. Must be overridden.
   abstract def fitness : Int32
 
   # DNA can be whatever data-type you want, but if not `BitArray` you should override
-  # #inspect_dna, #breed, #mutate and #initialize
+  # .random, #inspect_dna, #breed, #mutate and #initialize
   abstract def dna
 
   def initialize(@dna : BitArray)
@@ -40,7 +46,7 @@ abstract class Chromosome
 
   # Picks a random bit and flips it.
   # Override for other dna datatypes.
-  def mutate : Nil
+  def mutate! : Nil
     index = (0..@dna.size - 1).to_a.sample
     @dna[index] = !@dna[index]
   end

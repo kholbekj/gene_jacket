@@ -3,8 +3,13 @@ require "../src/chromosome"
 
 class Cat < Chromosome
   getter dna
+  getter current_population
 
   def initialize(@dna : BitArray = BitArray.new(8))
+  end
+
+  def self.random
+    new(BitArray.new(8))
   end
 
   def self.from_string(dna_string)
@@ -16,11 +21,15 @@ class Cat < Chromosome
   end
 
   def fitness : Int32
-    42
+    inspect_dna.to_i(2)
   end
 
   def solution? : Bool
     false
+  end
+  
+  def mutate!
+    dna[0] = true
   end
 end
 
@@ -46,10 +55,10 @@ describe Chromosome do
     end
   end
 
-  describe "#mutate" do
+  describe "#mutate!" do
     it "flips a random bit" do
       cat = Cat.new
-      cat.mutate
+      cat.mutate!
       cat.inspect_dna.count("1").should eq(1)
     end
   end
