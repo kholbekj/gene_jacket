@@ -2,5 +2,5 @@
 module GeneJacket
   VERSION = "0.1.0"
 
-  # TODO: Put your code here
+  puts "Welcome to the Gene Jacket Library. You should implement something."
 end

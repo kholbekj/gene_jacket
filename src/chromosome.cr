@@ -1,0 +1,47 @@
+require "bit_array"
+
+# Each chromosome represents a solution for the algorithm.
+# You should subclass this.
+abstract class Chromosome
+
+  # Fitness function. Must be overridden.
+  abstract def fitness : Int32
+
+  # DNA can be whatever data-type you want, but if not `BitArray` you should override
+  # #inspect_dna, #breed, #mutate and #initialize
+  abstract def dna
+
+  def initialize(@dna : BitArray)
+  end
+
+  # This should return whether or not the chromosome represents a complete solution.
+  # Override if criterea for good enough solution can be determined.
+  def solution? : Bool
+    false
+  end
+
+  # Represent dna as string, mostly for development, testing and visualization.
+  def inspect_dna : String
+    @dna.map { |b| b ? "1" : "0" }.join
+  end
+
+  # Single-point crossover breeding at middle of bitarray.
+  # Override for more sophisticated crossover.
+  def breed(other_chromosome : Chromosome) : Chromosome
+    new_dna = BitArray.new(@dna.size)
+    half_index = (@dna.size // 2) - 1
+    
+    0.upto(@dna.size - 1) do |i|
+      new_dna[i] = i > half_index ? other_chromosome.dna[i] : @dna[i]
+    end
+    
+    self.class.new(new_dna)
+  end
+
+  # Picks a random bit and flips it.
+  # Override for other dna datatypes.
+  def mutate : Nil
+    index = (0..@dna.size - 1).to_a.sample
+    @dna[index] = !@dna[index]
+  end
+end
