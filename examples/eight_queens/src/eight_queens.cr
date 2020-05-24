@@ -6,8 +6,6 @@ require "gene_jacket"
 module EightQueens
   # Since we know 8 queens will have 2 be on 8 different rows, we can represent
   # the board with the position of a queen in each row.
-  #
-
   class QueenConfiguration < Chromosome(Array(Int32))
     def self.random
       list = 8.times.map { Random.rand(8).ceil.to_i }.to_a
@@ -71,7 +69,6 @@ module EightQueens
       [self.class.new(first_dna), self.class.new(second_dna)]
     end
 
-    # Since we want to keep amount of queens, rather than flip bits we swap.
     def mutate!
       bits_to_swap = 0.upto(7).to_a.sample(2)
       dna[bits_to_swap.first], dna[bits_to_swap.last] = dna[bits_to_swap.last], dna[bits_to_swap.first]

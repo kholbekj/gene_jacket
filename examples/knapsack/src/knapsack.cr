@@ -62,7 +62,7 @@ module Knapsack
   end
 
   # Yes, I chose this name because it sounds funny, sue me.
-  class CombinationPopulation < Population
+  class CombinationPopulation < Population(BitArray)
     def chromosome_class
       ItemCombination
     end
