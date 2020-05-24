@@ -1,0 +1,13 @@
+name: eight_queens
+version: 0.1.0
+
+authors:
+  - Kasper Jensen <kasper.jensen@solarisbank.de>
+
+targets:
+  eight_queens:
+    main: src/eight_queens.cr
+
+crystal: 0.34.0
+
+license: MIT
