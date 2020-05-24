@@ -1,0 +1,17 @@
+name: knapsack
+version: 0.1.0
+
+authors:
+  - Kasper Jensen <kasper.jensen@solarisbank.de>
+
+targets:
+  knapsack:
+    main: src/knapsack.cr
+
+dependencies:
+  gene_jacket:
+      path: ../../
+
+crystal: 0.34.0
+
+license: MIT
