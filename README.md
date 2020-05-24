@@ -1,18 +1,27 @@
 # gene_jacket
 
-TODO: Write a description here
+This name is cringe. The "Jeans" pun is overdone, as I learned after making it.
+I need to up my game.
+
+Anyway, this is a genetic algorithm library that attempts to structure the 
+general evolution stuff, and let algorithm implementations isolate their choices
+while having some convenience methods for free.
+
 
 ## Installation
 
-TODO: Write installation instructions here
+It's just a shard. Add it to your shard.yml.
+
+```
+dependencies:
+  gene_jacket:
+      git: kholbekj/gene_jacket
+      version: 0.1.0
+```
 
 ## Usage
 
-TODO: Write usage instructions here
-
-## Development
-
-TODO: Write development instructions here
+See the /examples folder.
 
 ## Contributing
 
