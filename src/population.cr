@@ -23,9 +23,9 @@ abstract class Population
 
   # Calls fitness function on ALL chromosomes, and returns highest.
   # Be mindful of the expense.
-  def highest_fitness
-    return 0 if @current_population.empty?
-    @current_population.map(&.fitness).max
+  def winner
+    raise "Empty population" if @current_population.empty?
+    @current_population.max_by(&.fitness)
   end
 
   # Selects chromosomes for breeding (using `#select_pair`), creates the next generation.
