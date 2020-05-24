@@ -32,9 +32,49 @@ module EightQueens
     def fitness : Int32
       queen_positions = [] of Int8
       dna.each_with_index do |locus, index|
-        queen_positions << index.to_i8 if locus
+        queen_positions << index.to_i8 + 1 if locus
       end
-      queen_positions.map(&.to_i32).sum
+
+      moves_which_invalidate_solution = 0
+      queen_positions.each do |i|
+        verticals = queen_positions.select do |p|
+          # If the remainder of dividing by 8 is the same, they're in same column
+          p % 8 == i % 8 &&
+          # But she can't attack herself
+          p != i
+        end
+
+        horizontals = queen_positions.select do |p|
+          # If integer dividing by 8 is the same, they're in same row
+          p // 8 == i // 8 &&
+          # But still can't attack herself
+          p != i
+        end
+
+        diagonals = queen_positions.select do |p|
+          # I guess diagonals are kinda like columns, but with 7 and 9 as modulo?
+          (p % 9 == i % 9 ||
+           p % 7 == i % 7) &&
+          p != i
+        end
+
+        moves_which_invalidate_solution += [verticals, horizontals, diagonals].flatten.size
+      end
+      # This is where I realize that probably my fitness function should work with floats.
+      # 0 means we have a solution, and since we're not properly checking for blocked 
+      # lines, we can expect out upper bound to be around 8x7 = 56.
+      # It's for sure not really linear, though, so with proportial selection we'll need to
+      # emphasize lower scores more.
+      ((1 / 1 / moves_which_invalidate_solution) * 56).to_i32
+    end
+
+    # Let's make this easy to visually verify by printing like a chess board.
+    def inspect_dna
+      @dna
+        .map { |b| b ? "1" : "0" }
+        .each_slice(8)
+        .map { |row| row.join }
+        .join("\n")
     end
   end
 
@@ -47,5 +87,6 @@ module EightQueens
 
   population = ConfigurationPopulation.new(1)
   population.seed
+  puts population.winner.inspect_dna
   puts population.winner.fitness
 end
