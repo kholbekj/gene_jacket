@@ -54,7 +54,10 @@ abstract class Population
         weighted_candidates << c
       end
     end
-    weighted_candidates.sample(2)
+    # Avoid picking the same parent twice (we should use elitims to preserve genes instead)
+    first = weighted_candidates.sample
+    second = weighted_candidates.reject { |c| c == first }.sample
+    [first, second]
   end
 
   # A bit naive perhaps, but easy to override.

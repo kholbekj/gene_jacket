@@ -30,10 +30,7 @@ module EightQueens
     # I'll not spend a lot of time on an elegant / efficient algorithm here,
     # maybe I'll revisit that after I check out other solutions to the problem.
     def fitness : Int32
-      queen_positions = [] of Int8
-      dna.each_with_index do |locus, index|
-        queen_positions << index.to_i8 + 1 if locus
-      end
+      queen_positions = indices_from_dna(dna).map { |i| i + 1 }
 
       moves_which_invalidate_solution = 0
       queen_positions.each do |i|
@@ -83,7 +80,42 @@ module EightQueens
     # I'm not well versed in the gallery of crossover operators yet,
     # so I'm going a bit on intuition here. Finger's *crossed*!
     def breed(other_chromosome)
+      p1_positions = indices_from_dna(dna).to_set
+      p2_positions = indices_from_dna(other_chromosome.dna).to_set
 
+      # Copy the bits that the parents have in common
+      final_positions = [] of Int8
+      common_positions = (p1_positions & p2_positions)
+      final_positions += common_positions.to_a
+
+      # Now we need (8 - common_bits) positions selected from a mix of both parents.
+      # I think it's important that I do this randomly, or we'd skew the result.
+      amount_of_positions_still_needed = 8 - common_positions.size
+      1.upto(amount_of_positions_still_needed) do |i|
+        relevant_parent = i % 2 == 0 ? p1_positions : p2_positions
+        remaining_candidate_positions = relevant_parent - final_positions
+        final_positions << remaining_candidate_positions.to_a.sample
+      end
+
+      new_dna = BitArray.new(64)
+      final_positions.each do |p|
+        new_dna[p] = true
+      end
+      self.class.new(new_dna)
+    end
+
+    # Since we want to keep amount of queens, rather than flip bits we swap.
+    def mutate!
+      bits_to_swap = 0.upto(63).to_a.sample(2)
+      dna[bits_to_swap.first], dna[bits_to_swap.last] = dna[bits_to_swap.last], dna[bits_to_swap.first]
+    end
+
+    private def indices_from_dna(dna : BitArray)
+      indices = [] of Int8
+      dna.each_with_index do |locus, index|
+        indices << index.to_i8 if locus
+      end
+      indices
     end
   end
 
@@ -94,8 +126,20 @@ module EightQueens
     end
   end
 
-  population = ConfigurationPopulation.new(1)
+  population = ConfigurationPopulation.new(100)
   population.seed
-  puts population.winner.inspect_dna
-  puts population.winner.fitness
+
+  0.upto(90) do |i|
+    winner = population.winner
+    puts "Generation #{i}:"
+    puts "Highest fitness:"
+    puts winner.inspect_dna
+    puts winner.fitness
+    puts
+    if winner.solution?
+      puts "Solved!"
+      exit
+    end
+    population.evolve!
+  end
 end
