@@ -8,6 +8,10 @@ targets:
   eight_queens:
     main: src/eight_queens.cr
 
+dependencies:
+  gene_jacket:
+    path: ../../
+
 crystal: 0.34.0
 
 license: MIT
