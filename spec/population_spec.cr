@@ -5,6 +5,10 @@ require "../src/population"
 class CatPopulation < Population
   getter current_population
 
+  def chromosome_class
+    Cat
+  end
+
   def mutate?
     true
   end
@@ -12,18 +16,18 @@ end
 
 describe Population do
   it "subclass can instatiate" do
-    CatPopulation.new(10, Cat.new).should be_a(CatPopulation)
+    CatPopulation.new(10).should be_a(CatPopulation)
   end
 
   describe "#seed" do
-    pop = CatPopulation.new(10, Cat.new)
+    pop = CatPopulation.new(10)
     pop.current_population.size.should eq(0)
     pop.seed
     pop.current_population.size.should eq(10)
   end
 
   describe "#evolve!" do
-    pop = CatPopulation.new(4, Cat.new)
+    pop = CatPopulation.new(4)
 
     cats = [
       Cat.from_string("00000000"),

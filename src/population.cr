@@ -2,7 +2,9 @@
 abstract class Population
   getter generation
   
-  def initialize(@n : Int32, @prototype : Chromosome)
+  abstract def chromosome_class
+
+  def initialize(@n : Int32)
     @current_population = [] of Chromosome
     @generation = 0
   end
@@ -15,7 +17,7 @@ abstract class Population
     end
 
     @n.times do
-      @current_population << @prototype.class.random
+      @current_population << chromosome_class.random
     end
   end
 
