@@ -44,20 +44,14 @@ abstract class Population
 
   # Select a pair of chromosomes using proportional selection.
   def select_pair
-    # Utterly insane way to do this, not performant at all.
-    # Probably a slightly better way would be to order by fitness and pick a
-    # random number between 0 and the sum, then iterated and subtract.
+    [accept_reject_pick, accept_reject_pick]
+  end
 
-    weighted_candidates = [] of Chromosome
-    @current_population.each do |c|
-      c.fitness.times do
-        weighted_candidates << c
-      end
+  private def accept_reject_pick
+    loop do
+      candidate = @current_population.sample
+      return candidate if Random.rand(56) < candidate.fitness
     end
-    # Avoid picking the same parent twice (we should use elitims to preserve genes instead)
-    first = weighted_candidates.sample
-    second = weighted_candidates.reject { |c| c == first }.sample
-    [first, second]
   end
 
   # A bit naive perhaps, but easy to override.
