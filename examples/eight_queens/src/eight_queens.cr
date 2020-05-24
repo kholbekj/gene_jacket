@@ -25,10 +25,10 @@ module EightQueens
     end
 
     # This is where our bit-array gets a bit hairy.
-    # Probably a decent fitness function is inverse of the amount of queens
-    # which can take another, but for that we have to decide if two queens can.
+    # Probably a decent fitness function is inverse of the moves where queens
+    # can take another, but for that we have to decide how often two queens can.
     # I'll not spend a lot of time on an elegant / efficient algorithm here,
-    # maybe I'll revisit that after I check out other solutions to this.
+    # maybe I'll revisit that after I check out other solutions to the problem.
     def fitness : Int32
       queen_positions = [] of Int8
       dna.each_with_index do |locus, index|
@@ -60,6 +60,7 @@ module EightQueens
 
         moves_which_invalidate_solution += [verticals, horizontals, diagonals].flatten.size
       end
+
       # This is where I realize that probably my fitness function should work with floats.
       # 0 means we have a solution, and since we're not properly checking for blocked 
       # lines, we can expect out upper bound to be around 8x7 = 56.
@@ -75,6 +76,14 @@ module EightQueens
         .each_slice(8)
         .map { |row| row.join }
         .join("\n")
+    end
+
+    # For breeding, with permutations we can't just randomly combine the dna,
+    # as we'd be likely to end up with more or less than 8 queens.
+    # I'm not well versed in the gallery of crossover operators yet,
+    # so I'm going a bit on intuition here. Finger's *crossed*!
+    def breed(other_chromosome)
+
     end
   end
 
