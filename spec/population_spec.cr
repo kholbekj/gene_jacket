@@ -2,7 +2,7 @@ require "./spec_helper"
 require "./chromosome_spec"
 require "../src/population"
 
-class CatPopulation < Population
+class CatPopulation < Population(BitArray)
   getter current_population
 
   def chromosome_class
@@ -34,7 +34,7 @@ describe Population do
       Cat.from_string("00000000"),
       Cat.from_string("00000001"),
       Cat.from_string("00000010"),
-    ] of Chromosome
+    ] of Chromosome(BitArray)
 
     pop.seed(cats)
 

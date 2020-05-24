@@ -1,7 +1,7 @@
 require "./spec_helper"
 require "../src/chromosome"
 
-class Cat < Chromosome
+class Cat < Chromosome(BitArray)
   getter dna
   getter current_population
 

@@ -4,24 +4,17 @@ require "gene_jacket"
 # Assuming a regular chessboard (8x8), place 8 queens so that no one queen can
 # take any other.
 module EightQueens
-  # Technically the encoding here should be trivial, but I wonder if I can
-  # make life easier for the fitness function. Let's start by just doing the
-  # simple thing: a 64 length bit-array with 8 1's.
+  # Since we know 8 queens will have 2 be on 8 different rows, we can represent
+  # the board with the position of a queen in each row.
   #
-  # In this example we are dealing with permutations (there's always 8 1's and
-  # 56 0's, only the order changes), which switches up how we do crossover and
-  # mutation.
 
-
-  class QueenConfiguration < Chromosome
+  class QueenConfiguration < Chromosome(Array(Int32))
     def self.random
-      bits = BitArray.new(64)
+      list = 8.times.map { Random.rand(8).ceil.to_i }.to_a
+      new(list)
+    end
 
-      0.upto(63).to_a.sample(8).each do |i|
-        bits[i] = true
-      end
-
-      new(bits)
+    def initialize(@dna : Array(Int32))
     end
 
     # This is where our bit-array gets a bit hairy.
@@ -63,7 +56,7 @@ module EightQueens
       # lines, we can expect out upper bound to be around 8x7 = 56.
       # It's for sure not really linear, though, so with proportial selection we'll need to
       # emphasize lower scores more.
-      ((1 / 1 / moves_which_invalidate_solution) * 56).to_i32
+      ((3 / moves_which_invalidate_solution) * 56).to_i32
     end
 
     # Let's make this easy to visually verify by printing like a chess board.
@@ -124,12 +117,20 @@ module EightQueens
     def chromosome_class
       QueenConfiguration
     end
+
+    def mutate?
+      Random.rand < 0.02
+    end
+
+    def max_fitness
+      168
+    end
   end
 
-  population = ConfigurationPopulation.new(100)
+  population = ConfigurationPopulation.new(1000)
   population.seed
 
-  0.upto(90) do |i|
+  0.upto(900) do |i|
     winner = population.winner
     puts "Generation #{i}:"
     puts "Highest fitness:"

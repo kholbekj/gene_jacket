@@ -23,7 +23,7 @@ module Knapsack
     { weight: 8, value: 7 },
   ]
 
-  class ItemCombination < Chromosome
+  class ItemCombination < Chromosome(BitArray)
     def self.random
       bits = BitArray.new(8)
 

@@ -2,7 +2,7 @@ require "bit_array"
 
 # Each chromosome represents a solution for the algorithm.
 # You should subclass this.
-abstract class Chromosome
+class Chromosome(T)
   getter dna
   
   # Create a random new chromosome.
@@ -12,9 +12,11 @@ abstract class Chromosome
   end
 
   # Fitness function. Must be overridden.
-  abstract def fitness : Int32
+  def fitness : Int32
+    0
+  end
 
-  def initialize(@dna : BitArray)
+  def initialize(@dna : T)
   end
 
   # This should return whether or not the chromosome represents a complete solution.
@@ -30,7 +32,7 @@ abstract class Chromosome
 
   # Single-point crossover breeding at middle of bitarray.
   # Override for more sophisticated crossover.
-  def breed(other_chromosome : Chromosome) : Chromosome
+  def breed(other_chromosome : Chromosome(T)) : Chromosome(T)
     new_dna = BitArray.new(@dna.size)
     half_index = (@dna.size // 2) - 1
     
