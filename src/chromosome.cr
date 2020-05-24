@@ -33,7 +33,7 @@ class Chromosome(T)
   # Single-point crossover breeding at middle of bitarray.
   # Override for more sophisticated crossover.
   def breed(other_chromosome : Chromosome(T)) : Chromosome(T)
-    new_dna = BitArray.new(@dna.size)
+    new_dna = T.new(@dna.size)
     half_index = (@dna.size // 2) - 1
     
     0.upto(@dna.size - 1) do |i|
@@ -46,7 +46,5 @@ class Chromosome(T)
   # Picks a random bit and flips it.
   # Override for other dna datatypes.
   def mutate! : Nil
-    index = (0..@dna.size - 1).to_a.sample
-    @dna[index] = !@dna[index]
   end
 end

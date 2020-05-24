@@ -36,8 +36,12 @@ abstract class Population(T)
     @n.times do
       pair = select_pair
       offspring = pair.first.breed(pair.last)
-      offspring.mutate! if mutate?
-      new_population << offspring
+      
+      [offspring].flatten.each do |o|
+        o.mutate! if mutate?
+        new_population << o
+      end
+
     end
     @current_population = new_population
   end

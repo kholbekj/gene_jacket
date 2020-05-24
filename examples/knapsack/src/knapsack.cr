@@ -54,6 +54,11 @@ module Knapsack
       # fitness function
       return value
     end
+
+    def mutate! : Nil
+      index = (0..@dna.size - 1).to_a.sample
+      @dna[index] = !@dna[index]
+    end
   end
 
   # Yes, I chose this name because it sounds funny, sue me.
