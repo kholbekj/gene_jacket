@@ -4,7 +4,6 @@ require "bit_array"
 # You should subclass this.
 class Chromosome(T)
   getter dna
-  property fitness_calculation : FitnessCalculation(T), crossover_strategy : CrossoverStrategy(T)
   
   # Create a random new chromosome.
   # Should be overridden.
@@ -14,10 +13,18 @@ class Chromosome(T)
 
   # Fitness function. Must be overridden.
   def fitness : Int32
-    fitness_calculation.call(dna)
+    fitness_calculation.new.call(dna)
   end
 
-  def initialize(@dna : T, @fitness_calculation = FitnessCalculation(T).new, @crossover_strategy = CrossoverStrategy(T).new)
+  def fitness_calculation
+    FitnessCalculation(T)
+  end
+
+  def crossover_strategy
+    CrossoverStrategy(T)
+  end
+
+  def initialize(@dna : T)
   end
 
   # This should return whether or not the chromosome represents a complete solution.
@@ -34,7 +41,7 @@ class Chromosome(T)
   # Single-point crossover breeding at middle of bitarray.
   # Override for more sophisticated crossover.
   def breed(other_chromosome : Chromosome(T)) : Chromosome(T)
-    new_dna = crossover_strategy.call(dna, other_chromosome.dna)
+    new_dna = crossover_strategy.new.call(dna, other_chromosome.dna)
     self.class.new(new_dna)
   end
 
@@ -46,7 +53,7 @@ end
 
 class FitnessCalculation(T)
   def call(dna : T)
-    0
+    1
   end
 end
 
