@@ -6,6 +6,7 @@ class Cat < Chromosome(BitArray)
   getter current_population
 
   def initialize(@dna : BitArray = BitArray.new(8))
+    super
   end
 
   def self.random
