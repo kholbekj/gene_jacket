@@ -1,9 +1,6 @@
 # genetic
 
-This name is cringe. The "Jeans" pun is overdone, as I learned after making it.
-I need to up my game.
-
-Anyway, this is a genetic algorithm library that attempts to structure the 
+This is a genetic algorithm library that attempts to structure the 
 general evolution stuff, and let algorithm implementations isolate their choices
 while having some convenience methods for free.
 

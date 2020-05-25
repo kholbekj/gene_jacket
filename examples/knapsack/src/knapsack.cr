@@ -1,4 +1,4 @@
-require "gene_jacket"
+require "genetic"
 
 # The knapsack problem is this:
 # We have knapsack that can hold 15kg of stuff, and a range of items with
