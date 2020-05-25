@@ -1,4 +1,4 @@
-require "gene_jacket"
+require "genetic"
 
 # The eight queens problems is this:
 # Assuming a regular chessboard (8x8), place 8 queens so that no one queen can

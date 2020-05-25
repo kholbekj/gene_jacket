@@ -9,7 +9,7 @@ targets:
     main: src/knapsack.cr
 
 dependencies:
-  gene_jacket:
+  genetic:
       path: ../../
 
 crystal: 0.34.0

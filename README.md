@@ -1,4 +1,4 @@
-# gene_jacket
+# genetic
 
 This name is cringe. The "Jeans" pun is overdone, as I learned after making it.
 I need to up my game.
@@ -14,8 +14,8 @@ It's just a shard. Add it to your shard.yml.
 
 ```
 dependencies:
-  gene_jacket:
-      git: kholbekj/gene_jacket
+  genetic:
+      git: kholbekj/genetic
       version: 0.1.0
 ```
 
@@ -25,7 +25,7 @@ See the /examples folder.
 
 ## Contributing
 
-1. Fork it (<https://github.com/your-github-user/gene_jacket/fork>)
+1. Fork it (<https://github.com/your-github-user/genetic/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

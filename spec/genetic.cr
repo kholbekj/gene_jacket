@@ -1,6 +1,6 @@
 require "./spec_helper"
 
-describe GeneJacket do
+describe Genetic do
   # TODO: Write tests
 
   it "works" do

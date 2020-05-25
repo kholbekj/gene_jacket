@@ -1,12 +1,12 @@
-name: gene_jacket
+name: genetic
 version: 0.1.0
 
 authors:
   - Kasper Jensen <kasper.jensen@solarisbank.de>
 
 targets:
-  gene_jacket:
-    main: src/gene_jacket.cr
+  genetic:
+    main: src/genetic.cr
 
 crystal: 0.34.0
 

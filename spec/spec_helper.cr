@@ -1,2 +1,2 @@
 require "spec"
-require "../src/gene_jacket"
+require "../src/genetic"

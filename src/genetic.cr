@@ -1,6 +1,6 @@
 require "./chromosome"
 require "./population"
 
-module GeneJacket
+module Genetic
   VERSION = "0.1.0"
 end
