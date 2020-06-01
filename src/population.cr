@@ -1,8 +1,7 @@
 # Keeps track of population, generations, selection.
-abstract class Population(T)
+class Population(T)
   getter generation
   
-  abstract def chromosome_class
 
   def initialize(@n : Int32)
     @current_population = [] of T
@@ -17,7 +16,7 @@ abstract class Population(T)
     end
 
     @n.times do
-      @current_population << chromosome_class.random
+      @current_population << T.random
     end
   end
 

@@ -83,11 +83,4 @@ module Knapsack
       @dna[index] = !@dna[index]
     end
   end
-
-  # Yes, I chose this name because it sounds funny, sue me.
-  class CombinationPopulation < Population(ItemCombination)
-    def chromosome_class
-      ItemCombination
-    end
-  end
 end
