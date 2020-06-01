@@ -15,6 +15,10 @@ module EightQueens
     def initialize(@dna : Array(Int32))
     end
 
+    def crossover_strategy
+      SinglePointCrossover
+    end
+
     # Probably a decent fitness function is inverse of the moves where queens
     # can take another, but for that we have to decide how often two queens can.
     # I'll not spend a lot of time on an elegant / efficient algorithm here,
@@ -59,19 +63,20 @@ module EightQueens
       "#{dna}\n#{chess_board}"
     end
 
-    # We do single-point crossover, creating two offspring
-    def breed(other_chromosome)
-      point = Random.rand(8).floor.to_i
-      
-      first_dna = dna[0..point] + other_chromosome.dna[(point + 1)..-1]
-      second_dna = other_chromosome.dna[0..point] + dna[(point + 1)..-1]
-
-      [self.class.new(first_dna), self.class.new(second_dna)]
-    end
-
     def mutate!
       bits_to_swap = 0.upto(7).to_a.sample(2)
       dna[bits_to_swap.first], dna[bits_to_swap.last] = dna[bits_to_swap.last], dna[bits_to_swap.first]
+    end
+  end
+
+  class SinglePointCrossover < CrossoverStrategy(Array(Int32))
+    def call(first_parent_dna, second_parent_dna)
+      point = Random.rand(8).floor.to_i
+      
+      first_dna = first_parent_dna[0..point] + second_parent_dna[(point + 1)..-1]
+      second_dna = second_parent_dna[0..point] + first_parent_dna[(point + 1)..-1]
+
+      [first_dna, second_dna]
     end
   end
 

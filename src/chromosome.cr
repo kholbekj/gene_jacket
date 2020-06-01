@@ -38,15 +38,12 @@ class Chromosome(T)
     @dna.map { |b| b ? "1" : "0" }.join
   end
 
-  # Single-point crossover breeding at middle of bitarray.
-  # Override for more sophisticated crossover.
   def breed(other_chromosome : Chromosome(T))
     new_dna = crossover_strategy.new.call(dna, other_chromosome.dna)
     new_dna.map{ |dna| self.class.new(dna) }
   end
 
-  # Picks a random bit and flips it.
-  # Override for other dna datatypes.
+  # Override
   def mutate! : Nil
   end
 end
