@@ -56,6 +56,18 @@ module Knapsack
     end
   end
 
+  class UniformCrossover < CrossoverStrategy(BitArray)
+    def call(first_dna, second_dna)
+      new_dna = T.new(first_dna.size)
+
+      0.upto(first_dna.size - 1) do |i|
+        new_dna[i] = i.even? ? second_dna[i] : first_dna[i]
+      end
+
+      new_dna
+    end
+  end
+
   class ItemCombination < Chromosome(BitArray)
     def self.random
       bits = BitArray.new(8)
