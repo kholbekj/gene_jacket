@@ -11,3 +11,7 @@ population.seed
   puts
   population.evolve!
 end
+
+best = population.best_solution
+puts "Best solution:"
+puts "#{best.fitness} (#{best.inspect_dna})" if best

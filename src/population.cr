@@ -1,7 +1,8 @@
 # Keeps track of population, generations, selection.
 class Population(T)
-  getter generation
+  getter generation, best_solution
   
+  @best_solution : T?
 
   def initialize(@n : Int32)
     @current_population = [] of T
@@ -42,6 +43,7 @@ class Population(T)
       end
     end
     @current_population = new_population
+    @best_solution = winner
   end
 
   # Select a pair of chromosomes using proportional selection.
