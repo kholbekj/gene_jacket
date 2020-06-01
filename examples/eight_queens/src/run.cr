@@ -1,6 +1,6 @@
 require "./eight_queens"
 
-population = EightQueens::ConfigurationPopulation.new(1000)
+population = EightQueens::ConfigurationPopulation(EightQueens::QueenConfiguration).new(1000)
 population.seed
 
 0.upto(900) do |i|

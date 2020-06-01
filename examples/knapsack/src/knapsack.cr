@@ -52,7 +52,7 @@ module Knapsack
         new_dna[i] = i > half_index ? second_dna[i] : first_dna[i]
       end
 
-      new_dna
+      [new_dna]
     end
   end
 
@@ -64,7 +64,7 @@ module Knapsack
         new_dna[i] = i.even? ? second_dna[i] : first_dna[i]
       end
 
-      new_dna
+      [new_dna]
     end
   end
 

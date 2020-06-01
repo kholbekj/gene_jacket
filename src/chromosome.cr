@@ -40,9 +40,9 @@ class Chromosome(T)
 
   # Single-point crossover breeding at middle of bitarray.
   # Override for more sophisticated crossover.
-  def breed(other_chromosome : Chromosome(T)) : Chromosome(T)
+  def breed(other_chromosome : Chromosome(T))
     new_dna = crossover_strategy.new.call(dna, other_chromosome.dna)
-    self.class.new(new_dna)
+    new_dna.map{ |dna| self.class.new(dna) }
   end
 
   # Picks a random bit and flips it.
@@ -66,6 +66,6 @@ class CrossoverStrategy(T)
       new_dna[i] = i > half_index ? second_dna[i] : first_dna[i]
     end
     
-    new_dna
+    [new_dna]
   end
 end

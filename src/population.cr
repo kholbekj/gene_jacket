@@ -32,7 +32,7 @@ class Population(T)
   def evolve!
     @generation += 1
     new_population = [] of T
-    @n.times do
+    until new_population.size >= @n
       pair = select_pair
       offspring = pair.first.breed(pair.last)
       
@@ -40,7 +40,6 @@ class Population(T)
         o.mutate! if mutate?
         new_population << o
       end
-
     end
     @current_population = new_population
   end
