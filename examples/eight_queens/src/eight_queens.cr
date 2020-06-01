@@ -76,7 +76,7 @@ module EightQueens
   end
 
   # Yes, I chose this name because it sounds funny, sue me.
-  class ConfigurationPopulation < Population(Array(Int32))
+  class ConfigurationPopulation < Population(QueenConfiguration)
     def chromosome_class
       QueenConfiguration
     end
